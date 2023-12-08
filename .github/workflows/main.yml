@@ -52,4 +52,5 @@ jobs:
         env:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
           TAGS: ${{ steps.docker_meta.outputs.tags }}
+          COSIGN_EXPERIMENTAL: "true"
         run: cosign sign "${TAGS}@${DIGEST}"
