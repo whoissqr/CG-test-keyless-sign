@@ -53,6 +53,6 @@ jobs:
           COSIGN_EXPERIMENTAL: "true"
         run: cosign sign --yes "${TAGS}@${DIGEST}"
       - name: Verify the images
-        run: cosign verify ghcr.io/github-username/django-keyless-signing \
+        run: cosign verify ghcr.io/whoissqr/cg-test-keyless-sign \
              --certificate-identity https://github.com/whoissqr/cg-test-keyless-sign/.github/workflows/main.yml@refs/heads/main \
              --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq
