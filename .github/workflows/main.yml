@@ -48,7 +48,7 @@ jobs:
 
       - name: Sign the images with GitHub OIDC Token
         env:
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+          DIGEST: ${{ steps.push-step.outputs.digest }}
           TAGS: ghcr.io/${{ github.repository }}
           COSIGN_EXPERIMENTAL: "true"
         run: cosign sign "${TAGS}@${DIGEST}"
