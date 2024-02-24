@@ -83,3 +83,4 @@ jobs:
           kubectl get pods -n cg
           kubectl apply -f ./k3s/pod.yaml
           kubectl get pods -n cg
+          kubectl -n cg logs -f cg
