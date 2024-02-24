@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: cg
+  name: cg
+  namespace: cg
+spec:
+  containers:
+    - image: ghcr.io/whoissqr/cg-test-keyless-sign
+      name: cg-test-keyless-sign
+      resources: {}
