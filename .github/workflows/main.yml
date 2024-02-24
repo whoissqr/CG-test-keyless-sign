@@ -79,7 +79,7 @@ jobs:
         run: |
           kubectl get nodes
           kubectl create ns cg
-          kubectl get pods -cg
           sleep 20
-          kubectl get pods -A
+          kubectl get pods -n cg
           kubectl apply -f ./k3s/pod.yaml
+          kubectl get pods -n cg
