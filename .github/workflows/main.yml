@@ -59,14 +59,24 @@ jobs:
              --certificate-identity https://github.com/whoissqr/cg-test-keyless-sign/.github/workflows/main.yml@refs/heads/main \
              --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq
 
-      - uses: debianmaster/actions-k3s@master
+      - name: Create k3s cluster
+        uses: debianmaster/actions-k3s@master
         id: k3s
         with:
           version: 'latest'
-      - run: |
+
+      - name: Validate policy
+        uses: gbaeke/kyverno-cli@v1
+        with:
+          command: |
+            kyverno apply ./policies --resource=./k3s/policy-check-image-keyless.yaml
+          
+      - name: Deploy to k3s
+        run: |
           kubectl get nodes
           sleep 20
           kubectl create ns app
           kubectl -n app run cg-test-container --rm -it --image=ghcr.io/whoissqr/cg-test-keyless-sign -- sh
           kubectl get pods -n app
-            
+
+
