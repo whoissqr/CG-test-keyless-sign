@@ -65,8 +65,8 @@ jobs:
           version: 'latest'
       - run: |
           kubectl get nodes
-          kubectl get pods -A
           sleep 20
-          kubectl get pods -A
-          kubectl run cg-test-container --rm -it --image=ghcr.io/whoissqr/cg-test-keyless-sign -- sh
+          kubectl create ns app
+          kubectl -n app run cg-test-container --rm -it --image=ghcr.io/whoissqr/cg-test-keyless-sign -- sh
+          kubectl get pods -n app
             
