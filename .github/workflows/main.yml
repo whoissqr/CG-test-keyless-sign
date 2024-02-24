@@ -80,9 +80,8 @@ jobs:
           set -x
           kubectl get nodes
           kubectl create ns cg
+          sleep 20
           kubectl get pods -n cg
           kubectl apply -f ./k3s/pod.yaml
-          kubectl get pods -n cg
-          sleep 1
           kubectl get pods -n cg
           kubectl -n cg describe pod cg
