@@ -65,11 +65,15 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Validate policy
-        uses: gbaeke/kyverno-cli@v1
+      - name: Install Kyverno CLI
+        uses: kyverno/action-install-cli@v0.2.0
         with:
-          command: |
-            kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster
+          release: 'v1.9.5'
+          
+      - name: Check install
+        run: |
+          kyverno version
+          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster
 
       - name: Deploy pod to k3s
         run: |
