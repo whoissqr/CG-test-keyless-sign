@@ -69,14 +69,4 @@ jobs:
         uses: gbaeke/kyverno-cli@v1
         with:
           command: |
-            kyverno apply ./policies --resource=./k3s/policy-check-image-keyless.yaml
-          
-      - name: Deploy to k3s
-        run: |
-          kubectl get nodes
-          sleep 20
-          kubectl create ns app
-          kubectl -n app run cg-test-container --rm -it --image=ghcr.io/whoissqr/cg-test-keyless-sign -- sh
-          kubectl get pods -n app
-
-
+            kyverno apply ./k3s/policy-check-image-keyless.yaml --resource=./k3s/pod.yaml
