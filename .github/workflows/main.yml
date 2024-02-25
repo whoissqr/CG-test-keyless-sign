@@ -98,4 +98,4 @@ jobs:
       - name: Check policy using Kyverno CLI
         run: |
           kyverno version
-          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster
+          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
