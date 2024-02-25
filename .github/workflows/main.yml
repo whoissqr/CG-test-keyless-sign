@@ -78,14 +78,13 @@ jobs:
         run: |
           set -x
           kubectl get nodes
-          kubectl get polr -o wide
-          kubectl create ns cg
+          kubectl create ns app
           sleep 20
-          kubectl get pods -n cg
+          kubectl get pods -n app
           kubectl apply -f ./k3s/pod.yaml
           kubectl -n cg wait --for=condition=Ready pod/cg
-          kubectl get pods -n cg
-          kubectl -n cg describe pod cg
+          kubectl get pods -n app
+          kubectl -n app describe pod cg
           kubectl get polr -o wide
 
       - name: Install Kyverno CLI
