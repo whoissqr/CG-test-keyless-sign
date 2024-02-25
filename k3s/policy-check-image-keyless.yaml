@@ -14,7 +14,7 @@ spec:
               - Pod
       verifyImages:
       - imageReferences:
-        - "ghcr.io/whoissqr/cg-test-keyless-sign"
+        - "ghcr.io/whoissqr/cg-test-keyless-sign:latest"
         attestors:
         - entries:
           - keyless:
