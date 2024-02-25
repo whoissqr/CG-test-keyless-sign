@@ -51,7 +51,9 @@ jobs:
           DIGEST: ${{ steps.push-step.outputs.digest }}
           TAGS: ghcr.io/${{ github.repository }}
           COSIGN_EXPERIMENTAL: "true"
-        run: cosign sign --yes "${TAGS}@${DIGEST}"
+        run: |
+         echo 'don't sign image'
+         # cosign sign --yes "${TAGS}@${DIGEST}"
         
       - name: Verify the images
         run: |
