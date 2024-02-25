@@ -66,16 +66,6 @@ jobs:
         id: k3s
         with:
           version: 'latest'
-
-      - name: (optional) Install Kyverno CLI
-        uses: kyverno/action-install-cli@v0.2.0
-        with:
-          release: 'v1.9.5'
-          
-      - name: (optional) Verify policy using Kyverno CLI
-        run: |
-          kyverno version
-          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
           
       - name: Install Kyverno and apply policy
         run: |
@@ -95,4 +85,13 @@ jobs:
           # kubectl -n app describe pod cg
           # kubectl get polr -o wide
 
+      - name: (optional) Install Kyverno CLI
+        uses: kyverno/action-install-cli@v0.2.0
+        with:
+          release: 'v1.9.5'
+          
+      - name: (optional) Verify policy using Kyverno CLI
+        run: |
+          kyverno version
+          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
 
