@@ -81,6 +81,7 @@ jobs:
         run: |
           set -x
           kubectl get nodes
+          kubectl get polr -o wide
           kubectl create ns cg
           sleep 20
           kubectl get pods -n cg
@@ -88,3 +89,4 @@ jobs:
           kubectl -n cg wait --for=condition=Ready pod/cg
           kubectl get pods -n cg
           kubectl -n cg describe pod cg
+          kubectl get polr -o wide
