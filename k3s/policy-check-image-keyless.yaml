@@ -5,6 +5,7 @@ metadata:
 spec:
   validationFailureAction: Enforce
   failurePolicy: Fail
+  background: false
   webhookTimeoutSeconds: 30
   rules:
     - name: check-image-keyless
