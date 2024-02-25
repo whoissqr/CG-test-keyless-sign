@@ -53,7 +53,7 @@ jobs:
           COSIGN_EXPERIMENTAL: "true"
         run: |
           echo "dont sign image"
-          cosign sign --yes "${TAGS}@${DIGEST}"
+          # cosign sign --yes "${TAGS}@${DIGEST}"
         
       - name: (optional) Verify the images
         run: |
@@ -86,11 +86,13 @@ jobs:
           # kubectl get polr -o wide
 
       - name: (optional) Install Kyverno CLI
+        if: always() 
         uses: kyverno/action-install-cli@v0.2.0
         with:
           release: 'v1.9.5'
           
       - name: (optional) Verify policy using Kyverno CLI
+        if: always() 
         run: |
           kyverno version
           kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
