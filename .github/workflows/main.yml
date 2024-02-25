@@ -55,7 +55,7 @@ jobs:
           echo "dont sign image"
           cosign sign --yes "${TAGS}@${DIGEST}"
         
-      - name: Verify the images
+      - name: (optional) Verify the images
         run: |
           cosign verify ghcr.io/whoissqr/cg-test-keyless-sign \
              --certificate-identity https://github.com/whoissqr/cg-test-keyless-sign/.github/workflows/main.yml@refs/heads/main \
@@ -66,36 +66,33 @@ jobs:
         id: k3s
         with:
           version: 'latest'
-          
-      - name: Install Kyverno chart
-        run: |
-          helm repo add kyverno https://kyverno.github.io/kyverno/
-          helm repo update
-          helm install kyverno kyverno/kyverno -n kyverno --create-namespace
 
-      - name: Apply image attestation policy
-        run: |
-          kubectl apply -f ./k3s/policy-check-image-keyless.yaml
-          
-      - name: Deploy pod to k3s
-        run: |
-          set -x
-          # kubectl get nodes
-          kubectl create ns app
-          sleep 20
-          # kubectl get pods -n app
-          kubectl apply -f ./k3s/pod.yaml
-          kubectl -n app wait --for=condition=Ready pod/cg
-          kubectl get pods -n app
-          kubectl -n app describe pod cg
-          kubectl get polr -o wide
-
-      - name: Install Kyverno CLI
+      - name: (optional) Install Kyverno CLI
         uses: kyverno/action-install-cli@v0.2.0
         with:
           release: 'v1.9.5'
           
-      - name: Check policy using Kyverno CLI
+      - name: (optional) Verify policy using Kyverno CLI
         run: |
           kyverno version
           kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
+          
+      - name: Install Kyverno and apply policy
+        run: |
+          helm repo add kyverno https://kyverno.github.io/kyverno/
+          helm repo update
+          helm install kyverno kyverno/kyverno -n kyverno --create-namespace
+          kubectl apply -f ./k3s/policy-check-image-keyless.yaml
+
+      - name: Deploy pod to k3s
+        run: |
+          set -x
+          kubectl create ns app
+          sleep 10
+          kubectl apply -f ./k3s/pod.yaml
+          kubectl -n app wait --for=condition=Ready pod/cg
+          kubectl get pods -n app
+          # kubectl -n app describe pod cg
+          # kubectl get polr -o wide
+
+
