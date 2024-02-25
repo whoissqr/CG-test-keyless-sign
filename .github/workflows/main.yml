@@ -78,7 +78,7 @@ jobs:
         run: |
           set -x
           kubectl create ns app
-          sleep 10
+          sleep 20
           kubectl apply -f ./k3s/pod.yaml
           kubectl -n app wait --for=condition=Ready pod/cg
           kubectl get pods -n app
