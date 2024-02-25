@@ -75,7 +75,7 @@ jobs:
       - name: Check install
         run: |
           kyverno version
-          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster
+          kubectl apply -f ./k3s/policy-check-image-keyless.yaml
 
       - name: Deploy pod to k3s
         run: |
