@@ -87,3 +87,13 @@ jobs:
           kubectl get pods -n cg
           kubectl -n cg describe pod cg
           kubectl get polr -o wide
+
+      - name: Install Kyverno CLI
+        uses: kyverno/action-install-cli@v0.2.0
+        with:
+          release: 'v1.9.5'
+          
+      - name: Check install
+        run: |
+          kyverno version
+          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster
