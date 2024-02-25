@@ -83,5 +83,6 @@ jobs:
           sleep 20
           kubectl get pods -n cg
           kubectl apply -f ./k3s/pod.yaml
+          kubectl -n cg wait --for=condition=Ready pod/cg
           kubectl get pods -n cg
           kubectl -n cg describe pod cg
