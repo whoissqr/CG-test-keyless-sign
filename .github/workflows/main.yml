@@ -97,7 +97,7 @@ jobs:
         run: |
           kyverno version
           # kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
-          kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml
+          kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml -v 3
           
 
 
