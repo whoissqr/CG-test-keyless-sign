@@ -95,6 +95,7 @@ jobs:
         if: always() 
         run: |
           set -x
+          kubectl apply -f ./k3s/policy-check-image-keyless.yaml
           sleep 20
           kubectl create ns app
           kubectl apply -f ./k3s/pod.yaml
