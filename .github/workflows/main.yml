@@ -75,6 +75,7 @@ jobs:
 
       - name: Apply image attestation policy
         run: |
+          sleep 5
           kubectl apply -f ./k3s/policy-check-image-keyless.yaml
 
       - name: (optional) Install Kyverno CLI
@@ -95,7 +96,6 @@ jobs:
         run: |
           set -x
           kubectl create ns app
-          sleep 20
           kubectl apply -f ./k3s/pod.yaml
           kubectl -n app wait --for=condition=Ready pod/cg
           kubectl get pods -n app
