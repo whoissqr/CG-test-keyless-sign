@@ -95,6 +95,7 @@ jobs:
         if: always() 
         run: |
           set -x
+          sleep 20
           kubectl create ns app
           kubectl apply -f ./k3s/pod.yaml
           kubectl -n app wait --for=condition=Ready pod/cg
