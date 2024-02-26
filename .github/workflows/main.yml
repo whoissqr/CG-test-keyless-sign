@@ -76,6 +76,19 @@ jobs:
       - name: Apply image attestation policy
         run: |
           kubectl apply -f ./k3s/policy-check-image-keyless.yaml
+
+      - name: (optional) Install Kyverno CLI
+        if: always() 
+        uses: kyverno/action-install-cli@v0.2.0
+        with:
+          release: 'v1.9.5'
+          
+      - name: (optional) Dry run policy using Kyverno CLI
+        if: always() 
+        run: |
+          kyverno version
+          # kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
+          kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml
           
       - name: Deploy pod to k3s
         run: |
@@ -88,15 +101,5 @@ jobs:
           # kubectl -n app describe pod cg
           # kubectl get polr -o wide
 
-      - name: (optional) Install Kyverno CLI
-        if: always() 
-        uses: kyverno/action-install-cli@v0.2.0
-        with:
-          release: 'v1.9.5'
-          
-      - name: (optional) Verify policy using Kyverno CLI
-        if: always() 
-        run: |
-          kyverno version
-          kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
+
 
