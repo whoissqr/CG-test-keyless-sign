@@ -80,8 +80,8 @@ jobs:
       - name: Deploy pod to k3s
         if: always() 
         run: |
-          # kubectl create ns app
-          kubectl apply -f ./k3s/pod.yaml -n app
+          kubectl create ns app
+          kubectl apply -f ./k3s/pod.yaml
           kubectl -n app wait --for=condition=Ready pod/cg
           kubectl get pods -n app
 
