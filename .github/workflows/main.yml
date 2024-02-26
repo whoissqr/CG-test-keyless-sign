@@ -91,6 +91,7 @@ jobs:
           kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml
           
       - name: Deploy pod to k3s
+        if: always() 
         run: |
           set -x
           kubectl create ns app
