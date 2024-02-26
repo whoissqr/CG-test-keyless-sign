@@ -78,6 +78,18 @@ jobs:
           sleep 5
           kubectl apply -f ./k3s/policy-check-image-keyless.yaml
 
+      - name: Deploy pod to k3s
+        if: always() 
+        run: |
+          set -x
+          kubectl create ns app
+          sleep 20
+          kubectl apply -f ./k3s/pod.yaml
+          kubectl -n app wait --for=condition=Ready pod/cg
+          kubectl get pods -n app
+          # kubectl -n app describe pod cg
+          # kubectl get polr -o wide
+
       - name: (optional) Install Kyverno CLI
         if: always() 
         uses: kyverno/action-install-cli@v0.2.0
@@ -91,18 +103,7 @@ jobs:
           # kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
           kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml
           
-      - name: Deploy pod to k3s
-        if: always() 
-        run: |
-          set -x
-          kubectl apply -f ./k3s/policy-check-image-keyless.yaml
-          kubectl create ns app
-          sleep 20
-          kubectl apply -f ./k3s/pod.yaml
-          kubectl -n app wait --for=condition=Ready pod/cg
-          kubectl get pods -n app
-          # kubectl -n app describe pod cg
-          # kubectl get polr -o wide
+
 
 
 
