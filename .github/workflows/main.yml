@@ -61,6 +61,19 @@ jobs:
              --certificate-identity https://github.com/whoissqr/cg-test-keyless-sign/.github/workflows/main.yml@refs/heads/main \
              --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq
 
+      - name: (optional) Install Kyverno CLI
+        if: always() 
+        uses: kyverno/action-install-cli@v0.2.0
+        with:
+          release: '1.11.4'
+          
+      - name: (optional) Dry run policy using Kyverno CLI
+        if: always() 
+        run: |
+          kyverno version
+          kyverno apply ./k3s/policy-check-image-keyless.yaml --resource ./k3s/pod.yaml
+          # kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml -v 10
+          
       - name: Create k3s cluster
         uses: debianmaster/actions-k3s@master
         id: k3s
@@ -86,18 +99,7 @@ jobs:
           kubectl -n app wait --for=condition=Ready pod/cg
           kubectl get pods -n app
 
-      - name: (optional) Install Kyverno CLI
-        if: always() 
-        uses: kyverno/action-install-cli@v0.2.0
-        with:
-          release: '1.11.4'
-          
-      - name: (optional) Dry run policy using Kyverno CLI
-        if: always() 
-        run: |
-          kyverno version
-          # kyverno apply ./k3s/policy-check-image-keyless.yaml --cluster -v 10
-          kubectl get clusterpolicies -o yaml | kyverno apply - --resource ./k3s/pod.yaml -v 10
+
           
 
 
