@@ -90,7 +90,7 @@ jobs:
         if: always() 
         uses: kyverno/action-install-cli@v0.2.0
         with:
-          release: ' 1.11.4'
+          release: '1.11.4'
           
       - name: (optional) Dry run policy using Kyverno CLI
         if: always() 
