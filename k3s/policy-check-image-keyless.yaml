@@ -17,7 +17,7 @@ spec:
       verifyImages:
       - verifyDigest: false
         imageReferences:
-        - "ghcr.io/whoissqr/cg-test-keyless-sign:*"
+        - "ghcr.io/whoissqr/cg-test-keyless-sign*"
         attestors:
         - entries:
           - keyless:
