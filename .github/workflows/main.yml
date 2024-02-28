@@ -38,11 +38,14 @@ jobs:
 
       - uses: distroless/actions/apko-build@main
         with:
+           config: foo.yaml
            tags: ghcr.io/${{ github.repository }}:latest
 
-      - name: Push
-        run: |
-          docker push ghcr.io/${{ github.repository }}:latest
+      - uses: distroless/actions/apko-publish@main
+        id: apko
+        with:
+          config: foo.yaml
+          tags: ghcr.io/${{ github.repository }}:latest
 
       - name: Sign the images with GitHub OIDC Token
         env:
