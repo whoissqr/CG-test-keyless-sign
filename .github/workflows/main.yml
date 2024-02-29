@@ -37,7 +37,7 @@ jobs:
         id: apko
         with:
           config: foo.yaml
-          tags: ghcr.io/${{ github.repository }}:latest
+          tag: ghcr.io/${{ github.repository }}:latest
 
       - name: Sign the images with GitHub OIDC Token
         env:
