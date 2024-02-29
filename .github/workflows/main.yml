@@ -31,7 +31,7 @@ jobs:
       - uses: distroless/actions/apko-build@main
         with:
            config: foo.yaml
-           tags: ghcr.io/${{ github.repository }}:latest
+           tag: ghcr.io/${{ github.repository }}:latest
 
       - uses: distroless/actions/apko-publish@main
         id: apko
