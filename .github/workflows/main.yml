@@ -44,7 +44,7 @@ jobs:
           COSIGN_EXPERIMENTAL: "true"
         run: |
           echo "dont sign image"
-          cosign sign --yes  ${{ steps.apko.outputs.digest }}
+          cosign sign --yes  ${{ steps.push-step.outputs.digest }}
         
       - name: (optional) Verify the images
         run: |
