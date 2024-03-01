@@ -87,7 +87,8 @@ jobs:
           kubectl create ns app
           kubectl apply -f ./k3s/pod.yaml
           kubectl get pod -n app
-          kubectl -n app wait --for=condition=Ready pod/cg
+          kubectl describe pod cg -n app
+          kubectl -n app wait --for=condition=Ready --timeout=30s pod/cg
           kubectl describe pod cg -n app
           kubectl get pods -n app
 
