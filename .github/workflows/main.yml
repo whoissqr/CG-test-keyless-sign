@@ -41,12 +41,10 @@ jobs:
 
       - name: Sign the images with GitHub OIDC Token
         env:
-          DIGEST: ${{ steps.push-step.outputs.digest }}
-          TAGS: ghcr.io/${{ github.repository }}
           COSIGN_EXPERIMENTAL: "true"
         run: |
           echo "dont sign image"
-          cosign sign --yes "${TAGS}@${DIGEST}"
+          cosign sign --yes  ${{ steps.apko.outputs.digest }}
         
       - name: (optional) Verify the images
         run: |
