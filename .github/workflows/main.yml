@@ -34,7 +34,7 @@ jobs:
            tag: ghcr.io/${{ github.repository }}:latest
 
       - uses: distroless/actions/apko-publish@main
-        id: apko
+        id: push-step
         with:
           config: foo.yaml
           tag: ghcr.io/${{ github.repository }}:latest
