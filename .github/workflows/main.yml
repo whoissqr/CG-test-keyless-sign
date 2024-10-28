@@ -43,7 +43,7 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |
-          echo "dont sign image"
+          echo "sign image"
           cosign sign --yes  ${{ steps.push-step.outputs.digest }}
         
       - name: (optional) Verify the images
