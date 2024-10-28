@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@v3.7.0
           
       - name: Check install!
         run: cosign version
